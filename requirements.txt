@@ -1,0 +1,9 @@
+SimpleITK
+numpy
+torch
+nnunetv2
+monai
+torchio
+torchvision
+
+
