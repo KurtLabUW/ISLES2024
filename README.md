@@ -3,8 +3,7 @@
 This is the docker files for Kurtlab.
 
 Authors:
-Tianyi Ren
-Hitender Oswal
+Tianyi Ren and Hitender Oswal
 
 ## Instructions
 
