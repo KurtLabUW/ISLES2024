@@ -38,13 +38,14 @@ docker volume create "$DOCKER_NOOP_VOLUME"
 docker run --rm \
     --platform=linux/amd64 \
     --network none \
-    --shm-size=14gb \
+    --gpus all \
+    --shm-size=32gb \
     --volume "$INPUT_DIR":/input \
     --volume "$OUTPUT_DIR":/output \
     --volume "$DOCKER_NOOP_VOLUME":/tmp \
     $DOCKER_TAG
 
-#    --gpus all \
+
 docker volume rm "$DOCKER_NOOP_VOLUME"
 
 # Ensure permissions are set correctly on the output

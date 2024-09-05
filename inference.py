@@ -135,15 +135,14 @@ def nnunet(convertedInput, output_path):
     
     nnUNetRun = "nnUNet.nnunetv2.inference.predict_from_raw_data"
 
-    #subprocess.run([sys.executable, "-m", nnUNetRun, '-d', '150', '-i', convertedInput, '-o', f"{output_path}", '-f', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-tr', 'nnUNetTrainer', '-c', '3d_fullres', '-p', 'nnUNetResEncUNetLPlans', "--save_probabilities", "-device", "cpu"], check=True)
-    subprocess.run([sys.executable, "-m", nnUNetRun, '-d', '150', '-i', convertedInput, '-o', f"{output_path}", '-f', '0', '-tr', 'nnUNetTrainer', '-c', '3d_fullres', '-p', 'nnUNetResEncUNetLPlans', "--save_probabilities", "-device", "cpu"], check=True)
-
+    subprocess.run([sys.executable, "-m", nnUNetRun, '-d', '150', '-i', convertedInput, '-o', f"{output_path}", '-f', '1', '-tr', 'nnUNetTrainer', '-c', '3d_fullres', '-p', 'nnUNetResEncUNetLPlans', "-device", "cuda"], check=True)
 
 def predict_infarct():
     data = nnunet_dataset_conversion(join(Path("/input"), "images"))
     preprocessed = preprocessing.run_preprocessing(data, "/tmp/preprocessed")
     nnunet(preprocessed, "/tmp/inference")
     img = sitk.ReadImage("/tmp/inference/isles0000.nii.gz")
+    os.makedirs(join(Path("/output"), "images/stroke-lesion-segmentation"))
     sitk.WriteImage(img, join(Path("/output"), "images/stroke-lesion-segmentation/output.mha"), useCompression=True)
 
 def _show_torch_cuda_info():
